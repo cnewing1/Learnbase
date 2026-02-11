@@ -379,7 +379,6 @@
 <body class="space">
     <div class="stars" id="stars"></div>
     <div class="container">
-        <div class="user-info hidden" id="userInfo"></div>
         <div class="theme-indicator" id="themeIndicator"></div>
 
 
@@ -425,7 +424,7 @@
 
     <script>
         // Game State
-        let currentUser = null;
+        
         let currentTable = 1;
         let lives = 3;
         let currentQuestion = 0;
@@ -445,11 +444,17 @@
         };
 
         // Initialize
-        function init() {
-            loadGameData();
-            selectRandomTheme();
-            createStars();
-            
+            function init() {
+    selectRandomTheme();
+    createStars();
+    renderTableGrid();
+    showScreen('tableScreen');
+
+    document.getElementById('answerInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') submitAnswer();
+    });
+}
+        
             // Enter key support
             document.getElementById('usernameInput').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') login();
@@ -480,22 +485,7 @@
             }
         }
 
-        function loadGameData() {
-            const saved = localStorage.getItem('mathGameData');
-            gameData = saved ? JSON.parse(saved) : {};
-        }
-
-        function saveGameData() {
-            localStorage.setItem('mathGameData', JSON.stringify(gameData));
-        }
-
-        function login() {
-            const username = document.getElementById('usernameInput').value.trim();
-            if (!username) {
-                alert('Please enter your name!');
-                return;
-            }
-            
+    
             currentUser = username;
             if (!gameData[currentUser]) {
                 gameData[currentUser] = {
@@ -504,17 +494,8 @@
                 };
             }
             
-            document.getElementById('userInfo').textContent = `Player: ${currentUser}`;
-            document.getElementById('userInfo').classList.remove('hidden');
             showScreen('tableScreen');
             renderTableGrid();
-        }
-
-        function logout() {
-            currentUser = null;
-            document.getElementById('userInfo').classList.add('hidden');
-            document.getElementById('usernameInput').value = '';
-            showScreen('loginScreen');
         }
 
         function showScreen(screenId) {
@@ -525,33 +506,20 @@
         }
 
         function renderTableGrid() {
-            const grid = document.getElementById('tableGrid');
-            const userData = gameData[currentUser];
-            grid.innerHTML = '';
-            
-            for (let i = 1; i <= 10; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'table-btn';
-                btn.textContent = `${i} ×`;
-                
-                if (userData.completedTables.includes(i)) {
-                    btn.classList.add('completed');
-                    btn.innerHTML = `${i} × ✓`;
-                } else if (i === userData.currentTable) {
-                    btn.classList.add('current');
-                } else if (i > userData.currentTable) {
-                    btn.classList.add('locked');
-                    btn.disabled = true;
-                }
-                
-                btn.onclick = () => startQuiz(i);
-                grid.appendChild(btn);
-            }
+    const grid = document.getElementById('tableGrid');
+    grid.innerHTML = '';
 
-            const completed = userData.completedTables.length;
-            document.getElementById('playerProgress').innerHTML = 
-                `<h2>Progress: ${completed}/10 Tables Completed! 🎯</h2>`;
-        }
+    for (let i = 1; i <= 12; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'table-btn';
+        btn.textContent = `${i} ×`;
+        btn.onclick = () => startQuiz(i);
+        grid.appendChild(btn);
+    }
+
+    document.getElementById('playerProgress').innerHTML =
+        `<h2>Select Any Table to Practice 🎯</h2>`;
+}
 
         function startQuiz(table) {
             const userData = gameData[currentUser];
@@ -652,14 +620,11 @@
             }
         }
 
-        function completeTable() {
-            const userData = gameData[currentUser];
-            if (!userData.completedTables.includes(currentTable)) {
-                userData.completedTables.push(currentTable);
-                userData.currentTable = Math.min(currentTable + 1, 10);
-                saveGameData();
-            }
-            
+       function completeTable() {
+    alert(`🎊 Great job! You completed the ${currentTable} times table! 
+Get ready for a mini-game reward!`);
+    startMiniGame();
+}     
             alert(`🎊 Congratulations! You completed the ${currentTable} times table! 
 Get ready for a mini-game reward!`);
             startMiniGame();
