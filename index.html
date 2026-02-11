@@ -1437,11 +1437,13 @@ function showAdmin() {
 // ============================================================
 // USER SELECTION
 // ============================================================
-function selectUser(userId) {
+   function selectUser(userId) {
   const users = DB.get('users');
   if (!users[userId]) return;
   currentUser = userId;
+  showDash(); // ADD THIS LINE
 }
+
 
 function updateNavChip() {
   if (!currentUser) return;
