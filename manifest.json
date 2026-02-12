@@ -1,6 +1,6 @@
 {
-  "name": "LearnBase",
-  "short_name": "LearnBase",
+  "name": "EagleLearn",
+  "short_name": "EagleLearn",
   "description": "Learning platform for Corbin and Charlotte",
   "start_url": "./index.html",
   "display": "standalone",
