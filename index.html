@@ -1176,8 +1176,8 @@ input:focus, select:focus, textarea:focus {
           <input type="text" id="new-game-desc" placeholder="Short description of this activity">
         </div>
         <div class="input-group">
-          <label>Game File (filename in /games/ folder)</label>
-          <input type="text" id="new-game-file" placeholder="e.g. games/math-multiplication.html">
+          <label>Game File </label>
+          <input type="text" id="new-game-file" placeholder="e.g. math-multiplication.html">
         </div>
         <div class="input-group">
           <label>Assign To</label>
@@ -1299,7 +1299,7 @@ function initData() {
         subject: 'math',
         emoji: '🔢',
         desc: 'Times tables 1–10 with mini-game rewards',
-        file: 'games/math-multiplication.html',
+        file: 'math-multiplication.html',
         status: 'published',
         assignedTo: ['corbin', 'charlotte'],
         addedDate: new Date().toISOString()
@@ -1309,7 +1309,7 @@ function initData() {
 
   // Set admin password default
   if (!DB.get('adminPass')) {
-    DB.set('adminPass', 'learn2025');
+    DB.set('adminPass', 'caw2026');
   }
 }
 
