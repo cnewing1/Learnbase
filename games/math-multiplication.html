@@ -444,13 +444,13 @@
         };
 
         // Initialize
-            function init() {
+    function init() {
     selectRandomTheme();
     createStars();
     renderTableGrid();
     showScreen('tableScreen');
 
-    document.getElementById('answerInput').addEventListener('keypress', (e) => {
+    document.getElementById('answerInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') submitAnswer();
     });
 }
@@ -520,20 +520,18 @@
         `<h2>Select Any Table to Practice 🎯</h2>`;
 }
 
-        function startQuiz(table) {
-            const userData = gameData[currentUser];
-            if (table > userData.currentTable) return;
-            
-            currentTable = table;
-            currentQuestion = 0;
-            lives = 3;
-            
-            document.getElementById('tableTitle').textContent = `${table} Times Table Challenge`;
-            updateLives();
-            showScreen('quizScreen');
-            nextQuestion();
-        }
+     function startQuiz(table) {
+    currentTable = table;
+    currentQuestion = 0;
+    lives = 3;
 
+    document.getElementById('tableTitle').textContent =
+        `${table} Times Table Challenge`;
+
+    updateLives();
+    showScreen('quizScreen');
+    nextQuestion();
+}
         function updateLives() {
             const livesDiv = document.getElementById('lives');
             livesDiv.innerHTML = '';
@@ -619,16 +617,11 @@
             }
         }
 
-       function completeTable() {
-    alert(`🎊 Great job! You completed the ${currentTable} times table! 
+    function completeTable() {
+    alert(`🎊 Great job! You completed the ${currentTable} times table!
 Get ready for a mini-game reward!`);
     startMiniGame();
-}     
-            alert(`🎊 Congratulations! You completed the ${currentTable} times table! 
-Get ready for a mini-game reward!`);
-            startMiniGame();
-        }
-
+}
         function backToTables() {
             showScreen('tableScreen');
             renderTableGrid();
