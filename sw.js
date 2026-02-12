@@ -1,8 +1,8 @@
-const CACHE_NAME = 'learnbase-v1';
+const CACHE_NAME = 'EagleLearn-v1';
 const ASSETS = [
   './index.html',
   './manifest.json',
-  './games/math-multiplication.html'
+  './math-multiplication.html'
 ];
 
 self.addEventListener('install', e => {
