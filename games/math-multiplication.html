@@ -444,7 +444,7 @@
         };
 
         // Initialize
-    function init() {
+   function init() {
     selectRandomTheme();
     createStars();
     renderTableGrid();
@@ -455,13 +455,6 @@
     });
 }
         
-            // Enter key support
-            
-            });
-            document.getElementById('answerInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') submitAnswer();
-            });
-        }
 
         function selectRandomTheme() {
             currentTheme = themes[Math.floor(Math.random() * themes.length)];
@@ -485,17 +478,6 @@
         }
 
     
-            currentUser = username;
-            if (!gameData[currentUser]) {
-                gameData[currentUser] = {
-                    completedTables: [],
-                    currentTable: 1
-                };
-            }
-            
-            showScreen('tableScreen');
-            renderTableGrid();
-        }
 
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(screen => {
@@ -616,12 +598,13 @@
                 }, i * 100);
             }
         }
-
-    function completeTable() {
+function completeTable() {
     alert(`🎊 Great job! You completed the ${currentTable} times table!
 Get ready for a mini-game reward!`);
     startMiniGame();
 }
+        
+        
         function backToTables() {
             showScreen('tableScreen');
             renderTableGrid();
